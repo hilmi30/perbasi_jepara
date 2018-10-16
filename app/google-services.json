@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "113793942267",
+    "firebase_url": "https://perbasi-jepara.firebaseio.com",
+    "project_id": "perbasi-jepara",
+    "storage_bucket": "perbasi-jepara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113793942267:android:2eb3397ad688c597",
+        "android_client_info": {
+          "package_name": "com.perusdajepara.perbasijepara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113793942267-5506p364k8g9bp94o02cn00pituolvfq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRxwO6tO4fyfnmr0rqDWn3wViscL29HC8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
