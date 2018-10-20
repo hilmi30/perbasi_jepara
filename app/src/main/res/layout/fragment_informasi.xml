@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.InformasiFragment">
-
-    <ProgressBar
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:id="@+id/berita_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    tools:context=".informasi.InformasiFragment">
 
     <android.support.design.widget.TabLayout
+        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabTextColor="@color/whiteLight"
+        app:tabSelectedTextColor="@android:color/white"
+        android:background="@color/colorPrimary"
         app:tabMode="fixed"
         android:id="@+id/info_tab"
         android:layout_width="match_parent"

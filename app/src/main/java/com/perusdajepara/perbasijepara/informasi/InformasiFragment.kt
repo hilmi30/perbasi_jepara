@@ -1,4 +1,4 @@
-package com.perusdajepara.perbasijepara.fragment
+package com.perusdajepara.perbasijepara.informasi
 
 
 import android.os.Bundle
@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
-import com.perusdajepara.perbasijepara.adapter.InformasiAdapter
+import com.perusdajepara.perbasijepara.adapter.TabAdapter
+import com.perusdajepara.perbasijepara.berita.BeritaFragment
+import com.perusdajepara.perbasijepara.event.EventFragment
 import kotlinx.android.synthetic.main.fragment_informasi.*
 
 class InformasiFragment : Fragment() {
@@ -22,7 +24,7 @@ class InformasiFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val infoTabAdapter = InformasiAdapter(childFragmentManager)
+        val infoTabAdapter = TabAdapter(childFragmentManager)
         infoTabAdapter.addFragment(getString(R.string.berita), BeritaFragment())
         infoTabAdapter.addFragment(getString(R.string.event), EventFragment())
 

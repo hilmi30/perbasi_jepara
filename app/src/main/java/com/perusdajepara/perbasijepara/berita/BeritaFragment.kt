@@ -1,28 +1,25 @@
-package com.perusdajepara.perbasijepara.fragment
+package com.perusdajepara.perbasijepara.berita
 
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 
 import com.perusdajepara.perbasijepara.R
-import com.perusdajepara.perbasijepara.activity.DetailBeritaActivity
-import com.perusdajepara.perbasijepara.model.BeritaModel
 import com.perusdajepara.perbasijepara.presenter.BeritaPresenter
+import com.perusdajepara.perbasijepara.utils.visible
 import com.perusdajepara.perbasijepara.view.BeritaView
 import kotlinx.android.synthetic.main.fragment_berita.*
-import kotlinx.android.synthetic.main.layout_berita.view.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class BeritaFragment : Fragment(), BeritaView {
 
     private lateinit var presenter: BeritaPresenter
+    private lateinit var beritaAdapter: BeritaRecyAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,12 +37,10 @@ class BeritaFragment : Fragment(), BeritaView {
     override fun onAttachView() {
         presenter.onAttach(this)
         presenter.showListBerita()
-        presenter.startListening()
     }
 
     override fun onDetachView() {
         presenter.onDetach()
-        presenter.stopListening()
     }
 
     override fun onDestroy() {
@@ -53,20 +48,29 @@ class BeritaFragment : Fragment(), BeritaView {
         onDetachView()
     }
 
-    override fun setHolder(holder: BeritaHolder, position: Int, model: BeritaModel) {
-        holder.titleBerita.text = model.title
-        holder.itemView.setOnClickListener {
-            startActivity<DetailBeritaActivity>()
+    override fun showList(options: FirebaseRecyclerOptions<BeritaModel>) {
+        beritaAdapter = BeritaRecyAdapter(options, berita_loading) {
+            startActivity<BeritaDetailActivity>(
+                    "createdAt" to it.createdAt,
+                    "deskripsi" to it.deskripsi,
+                    "judul" to it.judul,
+                    "thumbnail" to it.thumbnail,
+                    "updatedAt" to it.updatedAt
+            )
         }
-    }
-
-    override fun showList(adapter: FirebaseRecyclerAdapter<BeritaModel, BeritaHolder>) {
         val layoutManager = LinearLayoutManager(context)
         berita_recy.layoutManager = layoutManager
-        berita_recy.adapter = adapter
+        berita_recy.adapter = beritaAdapter
     }
 
-    class BeritaHolder(v: View): RecyclerView.ViewHolder(v) {
-        val titleBerita: TextView = v.berita_judul
+    override fun onStart() {
+        super.onStart()
+        berita_loading.visible()
+        beritaAdapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        beritaAdapter.stopListening()
     }
 }

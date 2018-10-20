@@ -1,4 +1,4 @@
-package com.perusdajepara.perbasijepara.fragment
+package com.perusdajepara.perbasijepara.video
 
 
 import android.os.Bundle
@@ -9,12 +9,12 @@ import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
 
-class AboutFragment : Fragment() {
+class VideoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        return inflater.inflate(R.layout.fragment_video, container, false)
     }
 
 

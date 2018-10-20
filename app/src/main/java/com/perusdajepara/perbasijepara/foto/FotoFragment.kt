@@ -1,4 +1,4 @@
-package com.perusdajepara.perbasijepara.fragment
+package com.perusdajepara.perbasijepara.foto
 
 
 import android.os.Bundle
@@ -9,12 +9,12 @@ import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
 
-class TournamentFragment : Fragment() {
+class FotoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tournament, container, false)
+        return inflater.inflate(R.layout.fragment_foto, container, false)
     }
 
 

@@ -12,14 +12,14 @@
         android:title="@string/gallery"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/video"
-        android:icon="@drawable/circled_play_48px"
-        android:title="@string/video"
+    <item android:id="@+id/player"
+        android:icon="@drawable/basketball_jersey_48px"
+        android:title="@string/player"
         app:showAsAction="ifRoom"/>
 
-    <item android:id="@+id/tournament"
-        android:icon="@drawable/trophy_48px"
-        android:title="@string/tournament"
+    <item android:id="@+id/profil"
+        android:icon="@drawable/user_48px"
+        android:title="@string/profil"
         app:showAsAction="ifRoom"/>
 
 </menu>

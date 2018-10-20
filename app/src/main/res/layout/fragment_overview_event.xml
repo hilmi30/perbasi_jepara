@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".event.OverviewEventFragment">
+
+    <!--alamat, createdAt, deskripsi,-->
+    <!--judul, kategori, keterangan, lokasi, tanggal,-->
+    <!--thumbnail, updateAt-->
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:text="@string/lokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/event_lokasi"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginBottom="@dimen/detail_event_margin"
+            android:text="@string/alamat_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blackLine"/>
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/detail_event_margin"
+            android:text="@string/alamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/event_alamat"
+            android:layout_marginBottom="@dimen/detail_event_margin"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/nama_alamat_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blackLine"/>
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/detail_event_margin"
+            android:text="@string/nama_tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/event_tanggal"
+            android:layout_marginBottom="@dimen/detail_event_margin"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="@string/tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blackLine"/>
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/detail_event_margin"
+            android:text="@string/team_terdaftar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/event_team_terdaftar"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:layout_marginBottom="@dimen/detail_event_margin"
+            android:text="@string/jumlah_team_terdaftar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/blackLine"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/detail_event_margin"
+            android:layout_marginBottom="15dp"
+            android:text="@string/tentang_event"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.bluejamesbond.text.DocumentView
+            android:id="@+id/event_deskripsi"
+            app:documentView_textStyle="plain"
+            app:documentView_text="@string/lorem_ipsum"
+            app:documentView_textAlignment="justified"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

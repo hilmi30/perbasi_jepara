@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
-class InformasiAdapter(fm: FragmentManager?): FragmentPagerAdapter(fm) {
+class TabAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     private val fragmentTab: ArrayList<Fragment> = ArrayList()
     private val titleTab: ArrayList<String> = ArrayList()

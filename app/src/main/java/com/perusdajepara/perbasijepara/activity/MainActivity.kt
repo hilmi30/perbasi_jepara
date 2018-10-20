@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.utils.disableShiftMode
-import com.perusdajepara.perbasijepara.fragment.*
+import com.perusdajepara.perbasijepara.gallery.GalleryFragment
+import com.perusdajepara.perbasijepara.informasi.InformasiFragment
+import com.perusdajepara.perbasijepara.player.PlayerFragment
+import com.perusdajepara.perbasijepara.profil.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,8 +30,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.informasi -> fragment = InformasiFragment()
                 R.id.gallery -> fragment = GalleryFragment()
-                R.id.video -> fragment = VideoFragment()
-                R.id.tournament -> fragment = TournamentFragment()
+                R.id.player -> fragment = PlayerFragment()
+                R.id.profil -> fragment = ProfileFragment()
             }
 
             supportFragmentManager.beginTransaction()
