@@ -51,9 +51,14 @@
     <string name="ini_nama_event">Ini Nama Event</string>
     <string name="male">Male</string>
     <string name="status_event_kategori">Status Event Kategori</string>
-    <string name="register">Register</string>
     <string name="open">OPEN</string>
-    <string name="registrasi_belum_dibuka">Registrasi Belum Dibuka</string>
-    <string name="registrasi_dibuka">Registrasi Dibuka</string>
-    <string name="registrasi_ditutup">Registrasi Ditutup</string>
+    <string name="registrasi_belum_dibuka">Belum Dibuka</string>
+    <string name="registrasi_dibuka">Dibuka</string>
+    <string name="registrasi_ditutup">Ditutup</string>
+    <string name="putri">Putri</string>
+    <string name="putra">Putra</string>
+    <string name="nama_team">Nama Team</string>
+    <string name="lihat_team">Lihat Team</string>
+    <string name="detail">Detail</string>
+    <string name="register">Register</string>
 </resources>

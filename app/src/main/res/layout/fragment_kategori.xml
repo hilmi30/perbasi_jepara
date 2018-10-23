@@ -3,11 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".event.KategoriEventFragment">
+    tools:context=".informasi.event.kategori.KategoriEventFragment">
+
+    <ProgressBar
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/kategori_event_loading"/>
 
     <android.support.v7.widget.RecyclerView
         android:padding="10dp"
-        android:id="@+id/kategori_recy"
+        android:id="@+id/kategori_event_recy"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.adapter.TabAdapter
-import com.perusdajepara.perbasijepara.berita.BeritaFragment
-import com.perusdajepara.perbasijepara.event.EventFragment
+import com.perusdajepara.perbasijepara.informasi.berita.BeritaFragment
+import com.perusdajepara.perbasijepara.informasi.event.EventFragment
 import kotlinx.android.synthetic.main.fragment_informasi.*
 
 class InformasiFragment : Fragment() {

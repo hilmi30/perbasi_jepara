@@ -9,8 +9,8 @@ import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.adapter.TabAdapter
-import com.perusdajepara.perbasijepara.foto.FotoFragment
-import com.perusdajepara.perbasijepara.video.VideoFragment
+import com.perusdajepara.perbasijepara.gallery.foto.FotoFragment
+import com.perusdajepara.perbasijepara.gallery.video.VideoFragment
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 class GalleryFragment : Fragment() {

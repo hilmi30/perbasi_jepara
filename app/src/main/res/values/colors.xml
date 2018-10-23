@@ -7,4 +7,7 @@
     <color name="blue">#3B5998</color>
     <color name="whiteLight">#e9eaed</color>
     <color name="blackLine">#d1d1d6</color>
+    <color name="greenDark">#13871e</color>
+    <color name="redDark">#c71114</color>
+    <color name="orangeDark">#ce720f</color>
 </resources>
