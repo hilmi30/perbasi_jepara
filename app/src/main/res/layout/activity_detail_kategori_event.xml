@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".informasi.event.detailkategorievent.DetailKategoriEventActivity">
+    tools:context=".detailkategorievent.DetailKategoriEventActivity">
 
     <android.support.design.widget.AppBarLayout
+        app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/detail_event_toolbar"
+            android:id="@+id/detail_kategori_event_toolbar"
             app:title="@string/event"
             app:titleTextColor="@android:color/white"
             android:layout_width="match_parent"
@@ -23,6 +24,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.TabLayout
+        app:tabTextColor="@android:color/white"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorColor="@android:color/white"
+        android:background="@color/colorPrimary"
         android:id="@+id/detail_event_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

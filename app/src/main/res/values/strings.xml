@@ -61,4 +61,12 @@
     <string name="lihat_team">Lihat Team</string>
     <string name="detail">Detail</string>
     <string name="register">Register</string>
+    <string name="start_at">Start At</string>
+    <string name="waktu">13:00</string>
+    <string name="data_kosong">Data Kosong</string>
+    <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
+    <string name="finals">Finals</string>
+    <string name="win_lose">W-L</string>
+    <string name="pts">PTS</string>
+    <string name="avg_pts">AVG PTS</string>
 </resources>

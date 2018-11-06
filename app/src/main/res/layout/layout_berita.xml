@@ -36,7 +36,6 @@
                 android:id="@+id/berita_tanggal"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
-                android:textAlignment="textEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tanggal"/>

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.adapter.TabAdapter
-import com.perusdajepara.perbasijepara.informasi.berita.BeritaFragment
-import com.perusdajepara.perbasijepara.informasi.event.EventFragment
+import com.perusdajepara.perbasijepara.listberita.ListBeritaFragment
+import com.perusdajepara.perbasijepara.listevent.ListEventFragment
 import kotlinx.android.synthetic.main.fragment_informasi.*
 
 class InformasiFragment : Fragment() {
@@ -25,8 +25,8 @@ class InformasiFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val infoTabAdapter = TabAdapter(childFragmentManager)
-        infoTabAdapter.addFragment(getString(R.string.berita), BeritaFragment())
-        infoTabAdapter.addFragment(getString(R.string.event), EventFragment())
+        infoTabAdapter.addFragment(getString(R.string.berita), ListBeritaFragment())
+        infoTabAdapter.addFragment(getString(R.string.event), ListEventFragment())
 
         info_pager.adapter = infoTabAdapter
         info_tab.setupWithViewPager(info_pager)

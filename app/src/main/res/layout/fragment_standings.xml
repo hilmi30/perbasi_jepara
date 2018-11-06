@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".informasi.event.detailkategorievent.StandingsFragment">
+    tools:context=".liststandings.ListStandingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include
+        layout="@layout/layout_loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
 
-</FrameLayout>
+    <include
+        android:visibility="gone"
+        layout="@layout/layout_data_kosong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:id="@+id/tab_nama"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:textAllCaps="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/finals"/>
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/win_lose"/>
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/pts"/>
+
+        <TextView
+            android:textColor="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/avg_pts"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/standings_recy"
+        android:layout_below="@id/tab_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
