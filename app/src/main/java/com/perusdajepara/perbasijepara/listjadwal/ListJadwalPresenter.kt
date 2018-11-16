@@ -25,6 +25,7 @@ class ListJadwalPresenter: BasePresenter<ListJadwalView> {
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference.child("jadwal").child(key)
+        query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<JadwalModel>()
                 .setQuery(query, JadwalModel::class.java).build()
 

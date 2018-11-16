@@ -10,20 +10,17 @@ import com.perusdajepara.perbasijepara.informasi.InformasiFragment
 import com.perusdajepara.perbasijepara.player.PlayerFragment
 import com.perusdajepara.perbasijepara.profil.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    var fragment: Fragment? = null
+    private lateinit var fragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(main_toolbar)
-
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, InformasiFragment())
-                .commit()
 
         main_navbottom.disableShiftMode()
         main_navbottom.setOnNavigationItemSelectedListener {
@@ -39,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
+
+        main_navbottom.selectedItemId = R.id.informasi
 
     }
 }

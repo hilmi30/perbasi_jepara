@@ -2,6 +2,7 @@ package com.perusdajepara.perbasijepara.listkategori
 
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,6 +49,8 @@ class ListKategoriEventRecyAdapter(options: FirebaseRecyclerOptions<KategoriEven
                 holder.kategoriRegister.text = context.getString(R.string.detail)
             }
         }
+
+        Log.e("status", model.status.toString())
 
         holder.kategoriRegister.setOnClickListener {
             val uidKategori = getRef(position).key.toString()

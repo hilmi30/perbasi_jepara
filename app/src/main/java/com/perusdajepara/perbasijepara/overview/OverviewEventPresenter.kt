@@ -21,6 +21,7 @@ class OverviewEventPresenter: BasePresenter<OverviewEventView> {
     fun setOverviewItem(eventUid: String) {
         mDatabase = FirebaseDatabase.getInstance().reference
                 .child("event").child(eventUid)
+        mDatabase.keepSynced(true)
 
         listener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

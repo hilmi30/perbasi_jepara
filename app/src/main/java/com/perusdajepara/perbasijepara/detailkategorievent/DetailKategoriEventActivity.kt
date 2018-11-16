@@ -2,13 +2,16 @@ package com.perusdajepara.perbasijepara.detailkategorievent
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.view.MenuItem
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.adapter.TabAdapter
 import com.perusdajepara.perbasijepara.listjadwal.ListJadwalFragment
 import com.perusdajepara.perbasijepara.liststandings.ListStandingsFragment
 import com.perusdajepara.perbasijepara.listteam.ListTeamEventFragment
+import com.perusdajepara.perbasijepara.registerevent.RegisterEventFragment
 import kotlinx.android.synthetic.main.activity_detail_kategori_event.*
+import org.jetbrains.anko.toast
 
 class DetailKategoriEventActivity : AppCompatActivity() {
 
@@ -18,6 +21,7 @@ class DetailKategoriEventActivity : AppCompatActivity() {
 
         val uid = intent.getStringExtra("uid")
         val nama = intent.getStringExtra("nama")
+        val status = intent.getStringExtra("status")
 
         setSupportActionBar(detail_kategori_event_toolbar)
         supportActionBar?.title = nama.toUpperCase()
@@ -34,12 +38,23 @@ class DetailKategoriEventActivity : AppCompatActivity() {
         listJadwalFragment.arguments = bundle
         listStandingsFragment.arguments = bundle
 
-
-
         val tabAdapter = TabAdapter(supportFragmentManager)
-        tabAdapter.addFragment("Team", teamEventFragment)
-        tabAdapter.addFragment("Jadwal", listJadwalFragment)
-        tabAdapter.addFragment("Standing", listStandingsFragment)
+
+        when (status) {
+            "1" -> {
+                tabAdapter.addFragment("Register", RegisterEventFragment())
+                tabAdapter.addFragment("Jadwal", listJadwalFragment)
+                tabAdapter.addFragment("Team", teamEventFragment)
+                tabAdapter.addFragment("Standing", listStandingsFragment)
+                detail_event_tab.tabMode = TabLayout.MODE_SCROLLABLE
+            }
+            else -> {
+                tabAdapter.addFragment("Jadwal", listJadwalFragment)
+                tabAdapter.addFragment("Team", teamEventFragment)
+                tabAdapter.addFragment("Standing", listStandingsFragment)
+                detail_event_tab.tabMode = TabLayout.MODE_FIXED
+            }
+        }
 
         detail_event_pager.adapter = tabAdapter
         detail_event_tab.setupWithViewPager(detail_event_pager)

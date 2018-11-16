@@ -25,6 +25,7 @@ class ListStandingsPresenter: BasePresenter<ListStandingsView> {
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference.child("standings").child(uid)
+        query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<StandingsModel>()
                 .setQuery(query, StandingsModel::class.java).build()
 

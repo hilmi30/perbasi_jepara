@@ -46,7 +46,8 @@ class ListKategoriEventFragment : Fragment(), ListKategoriEventView {
         adapter = ListKategoriEventRecyAdapter(options) { model: KategoriEventModel, uidKategori: String ->
             startActivity<DetailKategoriEventActivity>(
                     "uid" to uidKategori,
-                    "nama" to model.nama
+                    "nama" to model.nama,
+                    "status" to model.status.toString()
             )
         }
 

@@ -1,5 +1,6 @@
 package com.perusdajepara.perbasijepara.listberita
 
+import android.util.Log
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,6 +26,7 @@ class ListBeritaPresenter: BasePresenter<ListBeritaView> {
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference.child("berita")
+        query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<BeritaModel>()
                 .setQuery(query, BeritaModel::class.java).build()
 

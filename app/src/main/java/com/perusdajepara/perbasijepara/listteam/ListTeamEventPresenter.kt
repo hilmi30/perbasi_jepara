@@ -26,6 +26,8 @@ class ListTeamEventPresenter: BasePresenter<ListTeamEventView> {
 
         val query = FirebaseDatabase.getInstance().reference
                 .child("teamTerdaftar").child(uid)
+        query.keepSynced(true)
+
         val options = FirebaseRecyclerOptions
                 .Builder<TeamEventModel>()
                 .setQuery(query, TeamEventModel::class.java).build()

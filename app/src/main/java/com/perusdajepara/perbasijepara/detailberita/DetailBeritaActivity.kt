@@ -12,14 +12,17 @@ import org.jetbrains.anko.toast
 
 class DetailBeritaActivity : AppCompatActivity(), DetailBeritaView {
 
-    private lateinit var presenter: DetailBeritaPresenter
+    private val presenter = DetailBeritaPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_berita)
 
-        presenter = DetailBeritaPresenter()
         onAttachView()
+    }
+
+    override fun onAttachView() {
+        presenter.onAttach(this)
 
         setSupportActionBar(detail_toolbar)
         supportActionBar?.title = ""
@@ -27,10 +30,9 @@ class DetailBeritaActivity : AppCompatActivity(), DetailBeritaView {
 
         // ganti warna panah jadi putih
         detail_toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
-    }
 
-    override fun onAttachView() {
-        presenter.onAttach(this)
+        val uid = intent.getStringExtra("uid").toString()
+        presenter.setItemBerita(uid)
     }
 
     override fun onDetachView() {
@@ -41,12 +43,6 @@ class DetailBeritaActivity : AppCompatActivity(), DetailBeritaView {
         super.onDestroy()
         onDetachView()
         presenter.removeListener()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val uid = intent.getStringExtra("uid").toString()
-        presenter.setItemBerita(uid)
     }
 
     override fun getDataError() {

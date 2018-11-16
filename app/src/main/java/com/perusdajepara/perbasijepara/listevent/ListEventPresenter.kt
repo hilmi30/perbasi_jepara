@@ -25,6 +25,7 @@ class ListEventPresenter: BasePresenter<ListEventView> {
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference.child("event")
+        query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<EventModel>()
                 .setQuery(query, EventModel::class.java).build()
 

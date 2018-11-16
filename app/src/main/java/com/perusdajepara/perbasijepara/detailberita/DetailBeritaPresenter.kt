@@ -19,7 +19,9 @@ class DetailBeritaPresenter: BasePresenter<DetailBeritaView> {
     }
 
     fun setItemBerita(uid: String) {
+
         mDatabase = FirebaseDatabase.getInstance().reference.child("berita").child(uid)
+        mDatabase.keepSynced(true)
 
         listener = object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {

@@ -26,6 +26,7 @@ class ListKategoriEventPresenter: BasePresenter<ListKategoriEventView> {
 
         val query = FirebaseDatabase.getInstance().reference
                 .child("kategoriEvent").child(key)
+        query.keepSynced(true)
         val options = FirebaseRecyclerOptions
                 .Builder<KategoriEventModel>()
                 .setQuery(query, KategoriEventModel::class.java).build()
