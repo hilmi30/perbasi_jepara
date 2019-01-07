@@ -1,115 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".activity.LoginActivity">
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/perbasilogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/perbasi_logo"/>
 
     <LinearLayout
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="20dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <ImageView
-            android:contentDescription="@string/basketball"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/basketball"/>
-
-        <EditText
-            android:drawablePadding="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:drawableStart="@drawable/email_24px_black"
-            android:background="@drawable/edit_text_border"
-            android:autofillHints="@string/email"
-            android:inputType="textEmailAddress"
-            android:layout_width="match_parent"
+        <!-- Login progress -->
+        <ProgressBar
+            android:id="@+id/login_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            tools:targetApi="o"
-            android:layout_marginBottom="10dp"/>
+            android:layout_margin="@dimen/spacing_xlarge"
+            android:visibility="gone" />
 
-        <EditText
-            android:drawablePadding="20dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:drawableStart="@drawable/password_24px_black"
-            android:background="@drawable/edit_text_border"
-            android:autofillHints="@string/password"
-            android:inputType="textPassword"
+        <ScrollView
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:layout_marginBottom="10dp"
-            tools:targetApi="o" />
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        <Button
-            android:background="@drawable/button_accent"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:layout_marginBottom="20dp"/>
+            <RelativeLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_xlarge">
 
-        <TextView
-            android:id="@+id/lupa_password_btn"
-            android:textStyle="bold|italic"
-            android:textColor="@color/colorAccent"
-            android:layout_marginBottom="20dp"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lupa_password"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <TextView
-            android:layout_marginBottom="20dp"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_dengan_sosial_media"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_gravity="center"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:drawableStart="@drawable/fb_32px_white"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/facebook"
-            android:layout_marginBottom="30dp"/>
+                        <AutoCompleteTextView
+                            android:id="@+id/email_login_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true" />
 
-        <TextView
-            android:layout_marginBottom="10dp"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/belum_punya_akun"/>
+                    </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:textSize="17sp"
-            android:id="@+id/daftar_btn"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/daftar"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/password_login_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:imeOptions="actionUnspecified"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:id="@+id/lupa_pass_btn"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lupa_password"/>
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_large"
+                        android:background="@drawable/btn_rounded_accent"
+                        android:text="@string/login"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/login_fb_btn"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:drawableStart="@drawable/fb_32px_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_rounded_fb"
+                        android:text="@string/login_fb"
+                        android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_marginTop="30dp"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/belum_punya_akun"/>
+
+                    <TextView
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/signup_btn"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textAllCaps="true"
+                        android:layout_marginTop="15dp"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/signup"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

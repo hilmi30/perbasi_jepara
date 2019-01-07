@@ -20,12 +20,12 @@ class ListKategoriEventPresenter: BasePresenter<ListKategoriEventView> {
         mView = null
     }
 
-    fun showListKategoriEvent(key: String) {
+    fun showListKategoriEvent(event: String) {
 
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference
-                .child("kategoriEvent").child(key)
+                .child("kategoriEvent").orderByChild("event").equalTo(event)
         query.keepSynced(true)
         val options = FirebaseRecyclerOptions
                 .Builder<KategoriEventModel>()

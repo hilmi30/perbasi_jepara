@@ -20,11 +20,12 @@ class ListStandingsPresenter: BasePresenter<ListStandingsView> {
         mView = null
     }
 
-    fun setStandings(uid: String) {
+    fun setStandings(kategori: String) {
 
         mView?.showLoading()
 
-        val query = FirebaseDatabase.getInstance().reference.child("standings").child(uid)
+        val query = FirebaseDatabase.getInstance().reference.child("standings")
+                .orderByChild("kategori").equalTo(kategori)
         query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<StandingsModel>()
                 .setQuery(query, StandingsModel::class.java).build()

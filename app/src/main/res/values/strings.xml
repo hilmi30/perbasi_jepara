@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Perbasi Jepara</string>
     <string name="splash_logo">splash_logo</string>
-    <string name="login">LOGIN</string>
+    <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="basketball">basketball</string>
@@ -15,7 +15,7 @@
     <string name="kirim">Kirim</string>
     <string name="silahkan_cek_email">Kami akan mengirimkan link reset password. Silahkan cek email anda.</string>
     <string name="informasi">Informasi</string>
-    <string name="gallery">Gallery</string>
+    <string name="gallery">Galeri</string>
     <string name="video">Video</string>
     <string name="tournament">Tournament</string>
     <string name="tentang">Tentang</string>
@@ -30,7 +30,7 @@
     <string name="foto">Foto</string>
     <string name="tgl">Tgl : </string>
     <string name="_15_desember_2018">Senin, 15 Desember 2018</string>
-    <string name="player">Player</string>
+    <string name="player">Pemain</string>
     <string name="tanggal">13 Juni 2018</string>
     <string name="detail_image">detail_image</string>
     <string name="judul_berita">Ketika cinta bertasbih hatiku terdenyut merdu kembang kembis dadaku merangkai</string>
@@ -64,9 +64,37 @@
     <string name="start_at">Start At</string>
     <string name="waktu">13:00</string>
     <string name="data_kosong">Data Kosong</string>
-    <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
     <string name="finals">Finals</string>
     <string name="win_lose">W-L</string>
     <string name="pts">PTS</string>
     <string name="avg_pts">AVG PTS</string>
+    <string name="point">point</string>
+    <string name="satu">1</string>
+    <string name="signup">Signup</string>
+    <string name="perbasilogo">perbasilogo</string>
+    <string name="login_fb">login facebook</string>
+    <string name="register_with_facebook">REGISTER WITH FACEBOOK</string>
+    <string name="photo_profile">photo_profile</string>
+    <string name="pria">Pria</string>
+    <string name="wanita">Wanita</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="set_tanggal">Set tanggal</string>
+    <string name="umur">Umur</string>
+    <string name="nama_user">Nama User</string>
+    <string name="laki_laki">Laki-laki</string>
+    <string name="nama">Nama</string>
+    <string name="logout">logout</string>
+    <string name="perempuan">Perempuan</string>
+    <string name="terjadi_kesalahan">Terjadi Kesalahan</string>
+    <string name="login_atau_register">Login atau Register</string>
+    <string name="tidak">Tidak</string>
+    <string name="ya">Ya</string>
+    <string name="yakin_ingin_logout">Yakin ingin logout?</string>
+    <string name="edit_profil">Edit Profil</string>
+    <string name="update_profile">updateProfile</string>
+    <string name="update">Update</string>
+    <string name="tanggalLahir">tanggalLahir</string>
+    <string name="gender">gender</string>
+    <string name="uidUser">uidUser</string>
 </resources>

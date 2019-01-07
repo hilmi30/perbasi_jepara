@@ -20,11 +20,12 @@ class ListJadwalPresenter: BasePresenter<ListJadwalView> {
         mView = null
     }
 
-    fun setListJadwal(key: String) {
+    fun setListJadwal(kategori: String) {
 
         mView?.showLoading()
 
-        val query = FirebaseDatabase.getInstance().reference.child("jadwal").child(key)
+        val query = FirebaseDatabase.getInstance().reference.child("jadwal")
+                .orderByChild("kategori").equalTo(kategori)
         query.keepSynced(true)
         val options = FirebaseRecyclerOptions.Builder<JadwalModel>()
                 .setQuery(query, JadwalModel::class.java).build()

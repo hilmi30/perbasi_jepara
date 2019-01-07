@@ -22,11 +22,9 @@ import org.jetbrains.anko.support.v4.toast
 
 class ListEventFragment : Fragment(), ListEventView {
 
-
-
-
     private lateinit var presenter: ListEventPresenter
     private lateinit var eventAdapter: ListEventRecyAdapter
+    private lateinit var event: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

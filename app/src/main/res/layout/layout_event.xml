@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_judul"
-                android:textSize="15sp"
+                android:textSize="14sp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -50,7 +50,6 @@
         <TextView
             android:maxLines="1"
             android:id="@+id/event_tanggal"
-            android:textStyle="bold"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
             android:gravity="center"

@@ -42,9 +42,11 @@ dependencies {
     implementation 'com.android.support:exifinterface:27.1.1'
     implementation 'com.github.bluejamesbond:textjustify-android:2.1.1'
     implementation 'com.github.chathuralakmal:AndroidImagePopup:1.2.1'
-    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
     implementation "android.arch.core:runtime:1.1.1"
     implementation "android.arch.core:common:1.1.1"
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.github.drawers:SpinnerDatePicker:1.0.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
