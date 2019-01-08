@@ -95,6 +95,7 @@
     <string name="update_profile">updateProfile</string>
     <string name="update">Update</string>
     <string name="tanggalLahir">tanggalLahir</string>
-    <string name="gender">gender</string>
+    <string name="gender">Gender</string>
     <string name="uidUser">uidUser</string>
+    <string name="imgUser">imgUser</string>
 </resources>

@@ -16,6 +16,7 @@ import com.perusdajepara.perbasijepara.model.UserModel
 import com.perusdajepara.perbasijepara.signup.SignupActivity
 import com.perusdajepara.perbasijepara.utils.gone
 import com.perusdajepara.perbasijepara.utils.visible
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -109,11 +110,13 @@ class ProfileFragment : Fragment(), ProfileView {
         btn_edit_profile.isEnabled = true
 
         tv_nama_user.text = userModel?.nama?.toUpperCase()
-        val gender: String = if (userModel?.jenisKelamin == 0) "Perempuan" else "Laki-laki"
+        val gender: String = if (userModel?.jenisKelamin == 1) "Laki-laki" else "Perempuan"
         tv_gender.text = gender
         tv_alamat.text = userModel?.alamat?.toUpperCase()
         tv_tanggal_lahir.text = userModel?.tanggalLahir
         tv_email.text = userModel?.email
+        Picasso.get().load(userModel?.imgUser).placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background).into(img_profile)
 
         btn_edit_profile.setOnClickListener {
             startActivity<SignupActivity>(
@@ -121,7 +124,8 @@ class ProfileFragment : Fragment(), ProfileView {
                     getString(R.string.nama) to userModel?.nama,
                     getString(R.string.alamat) to userModel?.alamat,
                     getString(R.string.tanggalLahir) to userModel?.tanggalLahir,
-                    getString(R.string.gender) to userModel?.jenisKelamin.toString()
+                    getString(R.string.gender) to userModel?.jenisKelamin.toString(),
+                    getString(R.string.imgUser) to userModel?.imgUser.toString()
             )
         }
     }

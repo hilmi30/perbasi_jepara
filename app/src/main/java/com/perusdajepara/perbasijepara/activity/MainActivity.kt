@@ -17,24 +17,12 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mAuth: FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setToolbar()
-        setAuth()
         setNavbottom()
-    }
-
-    private fun setAuth() {
-        mAuth = FirebaseAuth.getInstance()
-
-        if (mAuth.currentUser == null) {
-            startActivity<LoginActivity>()
-            finish()
-        }
     }
 
     private fun setNavbottom() {

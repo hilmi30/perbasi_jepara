@@ -8,4 +8,5 @@ class UserModel {
     var uidUser: String? = null
     var alamat: String? = null
     var umur: Int? = null
+    var imgUser: String? = null
 }
