@@ -8,4 +8,7 @@ interface LoginView: BaseView {
     fun showLoading()
     fun hideLoading()
     fun userNotFound()
+    fun emailNotVerified()
+    fun suksesResetPass()
+    fun gagalResetPass()
 }

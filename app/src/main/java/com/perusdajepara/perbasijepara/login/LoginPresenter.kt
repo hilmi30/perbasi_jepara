@@ -24,16 +24,30 @@ class LoginPresenter: BasePresenter<LoginView> {
 
         mView?.showLoading()
 
-        mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-            if (it.isSuccessful) {
+        mAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener {
+            if (mAuth.currentUser?.isEmailVerified as Boolean) {
                 mView?.hideLoading()
                 mView?.suksesLogin()
             } else {
-                mView?.userNotFound()
+                mView?.hideLoading()
+                mView?.emailNotVerified()
             }
         }.addOnFailureListener {
             mView?.hideLoading()
-            mView?.gagalLogin()
+            mView?.userNotFound()
+        }
+    }
+
+    fun resetPass(email: String) {
+
+        mView?.showLoading()
+
+        mAuth.sendPasswordResetEmail(email).addOnSuccessListener {
+            mView?.hideLoading()
+            mView?.suksesResetPass()
+        }.addOnFailureListener {
+            mView?.hideLoading()
+            mView?.gagalResetPass()
         }
     }
 }

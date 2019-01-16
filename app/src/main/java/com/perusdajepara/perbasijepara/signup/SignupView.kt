@@ -1,5 +1,6 @@
 package com.perusdajepara.perbasijepara.signup
 
+import com.google.firebase.auth.FirebaseUser
 import com.perusdajepara.perbasijepara.basecontract.BaseView
 
 interface SignupView: BaseView {
@@ -13,4 +14,6 @@ interface SignupView: BaseView {
     fun showLoading()
     fun hideLoading()
     fun successUpdate()
+    fun gotToMain()
+    fun setDataProfile(user: FirebaseUser?)
 }

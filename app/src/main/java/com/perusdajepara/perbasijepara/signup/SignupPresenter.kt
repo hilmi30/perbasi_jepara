@@ -1,20 +1,21 @@
 package com.perusdajepara.perbasijepara.signup
 
-import android.graphics.Bitmap
+import android.net.Uri
+import android.util.Log
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.perusdajepara.perbasijepara.basecontract.BasePresenter
 import com.perusdajepara.perbasijepara.model.UserModel
+
 
 class SignupPresenter: BasePresenter<SignupView> {
 
     private var mView: SignupView? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
-    private lateinit var mStorage: StorageReference
 
     override fun onAttach(view: SignupView) {
         mView = view
@@ -27,72 +28,97 @@ class SignupPresenter: BasePresenter<SignupView> {
     fun initFirebase() {
         mDatabase = FirebaseDatabase.getInstance().reference
         mAuth = FirebaseAuth.getInstance()
-        mStorage = FirebaseStorage.getInstance().reference
     }
 
     fun register(namaLengkap: String, email: String, pass: String, jenisKelamin: Int?,
-                 tanggalLahir: String?, alamat: String, imageByteArray: ByteArray, thumbnail: Bitmap?) {
+                 tanggalLahir: String?, alamat: String, imgUri: Uri) {
 
         mView?.showLoading()
 
         mAuth.createUserWithEmailAndPassword(email, pass).addOnSuccessListener {
             mView?.hideLoading()
-            saveUserToDatabase(namaLengkap, email, jenisKelamin, tanggalLahir, it.user.uid, alamat,
-                    imageByteArray, thumbnail)
+
+            // kirim email verifikasi
+            it.user.sendEmailVerification()
+
+            it.user.updateProfile(UserProfileChangeRequest.Builder()
+                    .setDisplayName(namaLengkap)
+                    .setPhotoUri(imgUri)
+                    .build())
+
+            saveUserToDatabase(jenisKelamin, tanggalLahir, it.user.uid, alamat)
         }.addOnFailureListener {
             mView?.hideLoading()
             mView?.failure()
         }
     }
 
-    private fun saveUserToDatabase(namaLengkap: String, email: String, jenisKelamin: Int?,
-                                   tanggalLahir: String?, uid: String, alamat: String, imageByteArray: ByteArray,
-                                   thumbnail: Bitmap?) {
+    private fun saveUserToDatabase(jenisKelamin: Int?, tanggalLahir: String?, uid: String, alamat: String) {
 
         val userModel = UserModel()
-        userModel.nama = namaLengkap
-        userModel.email = email
         userModel.jenisKelamin = jenisKelamin
         userModel.tanggalLahir = tanggalLahir
         userModel.uidUser = uid
         userModel.alamat = alamat
 
         mDatabase.child("user/$uid").setValue(userModel).addOnSuccessListener {
-            if (thumbnail != null) {
-                uploadGambar(imageByteArray, uid, "resgister")
-            }  else {
-                mView?.hideLoading()
-                mView?.successRegister()
-            }
+            mView?.hideLoading()
+            mView?.successRegister()
         }.addOnFailureListener {
             mView?.hideLoading()
             mView?.failure()
         }
     }
 
-    fun updateProfile(namaLengkap: String, jenisKelamin: Int?, tanggalLahir: String?, alamat: String,
-                      imageByteArray: ByteArray, thumbnail: Bitmap?, imgUser: String) {
+    fun updateProfile(namaLengkap: String, jenisKelamin: Int?, tanggalLahir: String?, alamat: String, imgUri: Uri, pass: String, oldPass: String) {
 
         mView?.showLoading()
 
         val userUID = mAuth.currentUser?.uid
-        val email = mAuth.currentUser?.email
+        val user = mAuth.currentUser
+
+        if (user == null) {
+            mView?.gotToMain()
+            return
+        }
 
         val userModel = UserModel()
-        userModel.nama = namaLengkap
         userModel.jenisKelamin = jenisKelamin
         userModel.tanggalLahir = tanggalLahir
         userModel.uidUser = userUID
         userModel.alamat = alamat
-        userModel.email = email
-        userModel.imgUser = imgUser
 
         mDatabase.child("user/$userUID").setValue(userModel).addOnSuccessListener {
-            if (thumbnail != null) {
-                uploadGambar(imageByteArray, userUID as String, "update")
-            }  else {
+            // update data profile
+            user.updateProfile(UserProfileChangeRequest.Builder()
+                    .setDisplayName(namaLengkap)
+                    .setPhotoUri(imgUri)
+                    .build()).addOnSuccessListener {
+
+                if (pass.isNotEmpty()) {
+
+                    val credential = EmailAuthProvider.getCredential(user.email.toString(), oldPass)
+
+                    user.reauthenticate(credential).addOnSuccessListener {
+                        user.updatePassword(pass).addOnSuccessListener {
+                            mView?.hideLoading()
+                            mView?.successUpdate()
+                        }.addOnFailureListener { error ->
+                            mView?.hideLoading()
+                            Log.e("error", error.toString())
+                            mView?.failure()
+                        }
+                    }.addOnFailureListener {
+                        mView?.hideLoading()
+                        mView?.failure()
+                    }
+                } else {
+                    mView?.hideLoading()
+                    mView?.successUpdate()
+                }
+            }.addOnFailureListener {
                 mView?.hideLoading()
-                mView?.successUpdate()
+                mView?.failure()
             }
         }.addOnFailureListener {
             mView?.hideLoading()
@@ -100,35 +126,8 @@ class SignupPresenter: BasePresenter<SignupView> {
         }
     }
 
-    private fun uploadGambar(imageByteArray: ByteArray, uid: String, s: String) {
-
-        mView?.showLoading()
-
-        val imgRoot = mStorage.child("foto/$uid")
-        val uploadTask = imgRoot.putBytes(imageByteArray)
-
-        // upload gambar ke firebase storage
-        uploadTask
-                .addOnSuccessListener {
-                    imgRoot.downloadUrl.addOnSuccessListener { uri ->
-                        mDatabase.child("user/$uid/imgUser").setValue(uri.toString())
-                                .addOnFailureListener {
-                                    mView?.hideLoading()
-                                    mView?.failure()
-                                }.addOnSuccessListener {
-                                    when (s) {
-                                        "update" -> mView?.successUpdate()
-                                        "register" -> mView?.successRegister()
-                                    }
-                                    mView?.hideLoading()
-                                }
-                    }.addOnFailureListener {
-                        mView?.hideLoading()
-                        mView?.failure()
-                    }
-
-                }.addOnFailureListener {
-                    mView?.hideLoading()
-                }
+    fun setDataProfile() {
+        val user = mAuth.currentUser
+        mView?.setDataProfile(user)
     }
 }

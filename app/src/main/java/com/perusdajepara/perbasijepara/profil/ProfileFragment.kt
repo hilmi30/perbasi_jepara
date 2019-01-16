@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.*
 
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.login.LoginActivity
@@ -16,10 +14,9 @@ import com.perusdajepara.perbasijepara.model.UserModel
 import com.perusdajepara.perbasijepara.signup.SignupActivity
 import com.perusdajepara.perbasijepara.utils.gone
 import com.perusdajepara.perbasijepara.utils.visible
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
@@ -28,6 +25,8 @@ import org.jetbrains.anko.support.v4.toast
 class ProfileFragment : Fragment(), ProfileView {
 
     private lateinit var presenter: ProfilePresenter
+    private lateinit var displayName: String
+    private lateinit var photoUrl: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -80,7 +79,6 @@ class ProfileFragment : Fragment(), ProfileView {
 
     override fun onStart() {
         super.onStart()
-
         presenter.checkUser()
     }
 
@@ -109,24 +107,32 @@ class ProfileFragment : Fragment(), ProfileView {
 
         btn_edit_profile.isEnabled = true
 
-        tv_nama_user.text = userModel?.nama?.toUpperCase()
         val gender: String = if (userModel?.jenisKelamin == 1) "Laki-laki" else "Perempuan"
         tv_gender.text = gender
         tv_alamat.text = userModel?.alamat?.toUpperCase()
         tv_tanggal_lahir.text = userModel?.tanggalLahir
-        tv_email.text = userModel?.email
-        Picasso.get().load(userModel?.imgUser).placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background).into(img_profile)
 
         btn_edit_profile.setOnClickListener {
             startActivity<SignupActivity>(
                     getString(R.string.update_profile) to "1",
-                    getString(R.string.nama) to userModel?.nama,
+                    getString(R.string.nama) to displayName,
                     getString(R.string.alamat) to userModel?.alamat,
                     getString(R.string.tanggalLahir) to userModel?.tanggalLahir,
                     getString(R.string.gender) to userModel?.jenisKelamin.toString(),
-                    getString(R.string.imgUser) to userModel?.imgUser.toString()
+                    getString(R.string.imgUser) to photoUrl
             )
         }
     }
+
+    override fun setProfileAuth(user: FirebaseUser?) {
+
+        displayName = user?.displayName.toString()
+        photoUrl = user?.photoUrl.toString()
+
+        tv_nama_user.text = displayName
+        tv_email.text = user?.email
+        Picasso.get().load(photoUrl).placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background).into(img_profile)
+    }
+
 }

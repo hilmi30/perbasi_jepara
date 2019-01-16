@@ -26,6 +26,10 @@ class ProfilePresenter: BasePresenter<ProfileView> {
 
     fun setProfile() {
         val authUid = mAuth.currentUser?.uid
+        val user = mAuth.currentUser
+
+        mView?.setProfileAuth(user)
+
         mDatabase.child("user/$authUid").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 mView?.errorCancelled()

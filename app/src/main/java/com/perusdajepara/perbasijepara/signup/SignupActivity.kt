@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.media.MediaScannerConnection
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -26,10 +25,9 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-
-
+import android.net.Uri
+import com.google.firebase.auth.FirebaseUser
+import com.perusdajepara.perbasijepara.activity.MainActivity
 
 
 class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdatepicker.DatePickerDialog.OnDateSetListener {
@@ -39,13 +37,14 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
     private var tanggalLahir: String? = null
 
     private lateinit var namaLengkap: String
+    private lateinit var oldPass: String
     private lateinit var pass: String
     private lateinit var passRepeat: String
     private lateinit var email: String
     private lateinit var alamat: String
     private lateinit var update: String
     private var thumbnail: Bitmap? = null
-    private lateinit var imgUser: String
+    private var imgUri: Uri? = null
 
     private val maxImageSize = 500f
     private val galleryCode = 1
@@ -77,33 +76,19 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
 
         when (update) {
             "1" -> {
-                pass_edt.gone()
-                ulangi_pass_edt.gone()
+                pass_lama_edt.visible()
+                pass_edt.hint = getString(R.string.pass_baru)
                 email_edt.gone()
                 register_btn.text = getString(R.string.update)
 
-                val nama = intent.getStringExtra(getString(R.string.nama))
-                val alamat = intent.getStringExtra(getString(R.string.alamat))
-                val gender = intent.getStringExtra(getString(R.string.gender))
-                tanggalLahir = intent.getStringExtra(getString(R.string.tanggalLahir))
-                imgUser = intent.getStringExtra(getString(R.string.imgUser))
-
-                nama_lengkap_edt.setText(nama)
-                alamat_edt.setText(alamat)
-                tv_tanggal.text = tanggalLahir
-                Picasso.get().load(imgUser).placeholder(R.drawable.ic_launcher_background)
-                        .error(R.drawable.ic_launcher_background).into(photo_profile_img)
-
-                when (gender) {
-                    "1" -> radio_male.isChecked = true
-                    else -> radio_female.isChecked = true
-                }
+                presenter.setDataProfile()
             }
             else -> {
-                pass_edt.visible()
-                ulangi_pass_edt.visible()
+                pass_lama_edt.gone()
+                pass_edt.hint = getString(R.string.password)
                 email_edt.visible()
                 register_btn.text = getString(R.string.register)
+                imgUri = Uri.parse("android.resource://$packageName/drawable/ic_launcher_background")
                 jenisKelamin = 1
             }
         }
@@ -268,16 +253,18 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
         pass = pass_edt.text.toString()
         passRepeat = ulangi_pass_edt.text.toString()
         alamat = alamat_edt.text.toString()
+        oldPass = pass_lama_edt.text.toString()
 
-        val baos = ByteArrayOutputStream()
-        thumbnail?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val imageByteArray = baos.toByteArray()
+        if (thumbnail != null) {
+            val baos = ByteArrayOutputStream()
+            thumbnail?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val path = MediaStore.Images.Media.insertImage(contentResolver, thumbnail, "Title", null)
+            imgUri = Uri.parse(path)
+        }
 
         when (update) {
-            "1" -> if (validation()) presenter.updateProfile(namaLengkap, jenisKelamin, tanggalLahir,
-                    alamat, imageByteArray, thumbnail, imgUser)
-            else ->  if (validation()) presenter.register(namaLengkap, email, pass, jenisKelamin,
-                    tanggalLahir, alamat, imageByteArray, thumbnail)
+            "1" -> if (validation()) presenter.updateProfile(namaLengkap, jenisKelamin, tanggalLahir, alamat, imgUri as Uri, pass, oldPass)
+            else ->  if (validation()) presenter.register(namaLengkap, email, pass, jenisKelamin, tanggalLahir, alamat, imgUri as Uri)
         }
     }
 
@@ -286,33 +273,48 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
         var valid = true
 
         if (namaLengkap.isEmpty()) {
-            nama_lengkap_edt.error = "nama tidak benar"
+            nama_lengkap_edt.error = getString(R.string.nama_tidak_benar)
             valid = false
         }
+
         if (update == "0") {
             if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                email_edt.error = "email tidak benar"
+                email_edt.error = getString(R.string.emai_tidak_benar)
                 valid = false
             }
             if (pass.isEmpty()) {
-                pass_edt.error = "password tidak benar"
+                pass_edt.error = getString(R.string.pass_tidak_benar)
                 valid = false
             }
             if (pass != passRepeat) {
-                ulangi_pass_edt.error = "password tidak sama"
+                ulangi_pass_edt.error = getString(R.string.pass_tidak_sama)
                 valid = false
             }
             if (pass.length < 6) {
-                pass_edt.error = "password harus lebih dari 6 karakter"
+                pass_edt.error = getString(R.string.pass_lebih_dari)
                 valid = false
             }
         }
+
+        if (update == "1") {
+            if (pass.isNotEmpty() || passRepeat.isNotEmpty()) {
+                if (pass != passRepeat) {
+                    ulangi_pass_edt.error = getString(R.string.pass_tidak_sama)
+                    valid = false
+                }
+                if (pass.length < 6) {
+                    pass_edt.error = getString(R.string.pass_lebih_dari)
+                    valid = false
+                }
+            }
+        }
+
         if (tanggalLahir.isNullOrEmpty()) {
-            toast("tanggal lahir tidak boleh kosong")
+            toast(getString(R.string.tgl_tidak_boleh_kosong))
             valid = false
         }
         if (alamat.isEmpty()) {
-            alamat_edt.error = "alamat tidak benar"
+            alamat_edt.error = getString(R.string.alamat_tidak_benar)
             valid = false
         }
 
@@ -371,6 +373,29 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
         finish()
     }
 
+    override fun gotToMain() {
+        startActivity<MainActivity>()
+        finish()
+    }
+
+    override fun setDataProfile(user: FirebaseUser?) {
+        val alamat = intent.getStringExtra(getString(R.string.alamat))
+        val gender = intent.getStringExtra(getString(R.string.gender))
+        tanggalLahir = intent.getStringExtra(getString(R.string.tanggalLahir))
+        imgUri = user?.photoUrl
+
+        nama_lengkap_edt.setText(user?.displayName)
+        alamat_edt.setText(alamat)
+        tv_tanggal.text = tanggalLahir
+        Picasso.get().load(imgUri).placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background).into(photo_profile_img)
+
+        when (gender) {
+            "1" -> radio_male.isChecked = true
+            else -> radio_female.isChecked = true
+        }
+    }
+
     // simpan gambar ke storage
     private fun saveImage(myBitmap: Bitmap?, c: Context):String {
         val imageDirectory = "/AgusAppPhoto"
@@ -419,23 +444,5 @@ class SignupActivity : AppCompatActivity(), SignupView, com.tsongkha.spinnerdate
                 realImage, width,
                 height, filter
         )
-    }
-
-    private fun drawableToBitmap(drawable: Drawable): Bitmap {
-        if (drawable is BitmapDrawable) {
-            return drawable.bitmap
-        }
-
-        var width = drawable.intrinsicWidth
-        width = if (width > 0) width else 1
-        var height = drawable.intrinsicHeight
-        height = if (height > 0) height else 1
-
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width, canvas.height)
-        drawable.draw(canvas)
-
-        return bitmap
     }
 }

@@ -48,6 +48,7 @@
                     android:text="@string/alamat"/>
 
                 <TextView
+                    android:visibility="gone"
                     android:textSize="12sp"
                     android:maxLines="1"
                     android:id="@+id/team_player"

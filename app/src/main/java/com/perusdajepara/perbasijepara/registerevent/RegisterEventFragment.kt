@@ -7,9 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.perusdajepara.perbasijepara.R
+import kotlinx.android.synthetic.main.fragment_register_event.*
 
 
-class RegisterEventFragment : Fragment() {
+class RegisterEventFragment : Fragment(), RegisterEventView {
+    override fun showLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private val presenter = RegisterEventPresenter()
+    private lateinit var uidEvent: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -17,5 +24,55 @@ class RegisterEventFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_register_event, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        uidEvent = arguments?.getString("uid").toString()
+        onAttachView()
+    }
+
+    override fun onAttachView() {
+        presenter.onAttach(this)
+        presenter.initFirebase()
+
+        setKirimBtn()
+    }
+
+    private fun setKirimBtn() {
+        btn_kirim.setOnClickListener {
+            val namaTeam = edt_nama_team.text.toString()
+            val emailTeam = edt_email.text.toString()
+            val noTelp = edt_nmr_tlp.text.toString()
+
+            if (validation()) presenter.kirimDaftarEvent(namaTeam, emailTeam, noTelp, uidEvent)
+        }
+    }
+
+    private fun validation(): Boolean {
+        var valid = true
+
+        if (edt_nama_team.text.isEmpty()) {
+            edt_nama_team.error = "tidak boleh kosong"
+            valid = false
+        }
+        if (edt_email.text.isEmpty()) {
+            edt_email.error = "tidak boleh kosong"
+            valid = false
+        }
+        if (edt_nmr_tlp.text.isEmpty()) {
+            edt_nmr_tlp.error = "tidak boleh kosong"
+            valid = false
+        }
+
+        return valid
+    }
+
+    override fun onDetachView() {
+        presenter.onDetach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onDetachView()
+    }
 
 }

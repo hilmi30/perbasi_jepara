@@ -98,4 +98,19 @@
     <string name="gender">Gender</string>
     <string name="uidUser">uidUser</string>
     <string name="imgUser">imgUser</string>
+    <string name="nama_tidak_benar">nama tidak benar</string>
+    <string name="emai_tidak_benar">email tidak benar</string>
+    <string name="pass_tidak_benar">password tidak benar</string>
+    <string name="pass_tidak_sama">password tidak sama</string>
+    <string name="pass_lebih_dari">password harus lebih dari 6 karakter</string>
+    <string name="tgl_tidak_boleh_kosong">tanggal lahir tidak boleh kosong</string>
+    <string name="alamat_tidak_benar">alamat tidak benar</string>
+    <string name="local">local</string>
+    <string name="password_lama">Password Lama</string>
+    <string name="pass_baru">Password Baru</string>
+    <string name="nama_tim">Nama Tim</string>
+    <string name="nama_pemain">Nama Pemain</string>
+    <string name="pemain_1">Pemain 1</string>
+    <string name="pemain_2">Pemain 2</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
 </resources>

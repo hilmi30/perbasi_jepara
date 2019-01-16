@@ -31,9 +31,11 @@ class DetailKategoriEventActivity : AppCompatActivity() {
         val bundle = Bundle()
         bundle.putString("uid", uid)
 
+        val registerFragment = RegisterEventFragment()
         val teamEventFragment = ListTeamEventFragment()
         val listJadwalFragment = ListJadwalFragment()
         val listStandingsFragment = ListStandingsFragment()
+        registerFragment.arguments = bundle
         teamEventFragment.arguments = bundle
         listJadwalFragment.arguments = bundle
         listStandingsFragment.arguments = bundle
