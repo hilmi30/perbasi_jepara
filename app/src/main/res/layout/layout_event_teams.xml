@@ -22,6 +22,7 @@
             android:text="@string/nama_team"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/lihat_team"
             android:textColor="@color/colorPrimary"
             android:textAllCaps="true"

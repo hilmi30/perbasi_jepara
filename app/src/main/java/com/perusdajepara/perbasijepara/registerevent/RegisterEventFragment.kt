@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.perusdajepara.perbasijepara.R
+import com.perusdajepara.perbasijepara.utils.gone
+import com.perusdajepara.perbasijepara.utils.visible
 import kotlinx.android.synthetic.main.fragment_register_event.*
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.support.v4.alert
 
 
 class RegisterEventFragment : Fragment(), RegisterEventView {
-    override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private val presenter = RegisterEventPresenter()
     private lateinit var uidEvent: String
@@ -73,6 +74,32 @@ class RegisterEventFragment : Fragment(), RegisterEventView {
     override fun onDestroyView() {
         super.onDestroyView()
         onDetachView()
+    }
+
+    override fun hideLoading() {
+        pb_register_event.gone()
+    }
+
+    override fun daftarEventBerhasil() {
+        alert {
+            message = "Daftar Event Berhasil"
+            okButton {
+                it.dismiss()
+            }
+        }.show()
+    }
+
+    override fun gagalDaftarEvent() {
+        alert {
+            message = "Daftar Event Gagal, silahkan coba lagi"
+            okButton {
+                it.dismiss()
+            }
+        }.show()
+    }
+
+    override fun showLoading() {
+        pb_register_event.visible()
     }
 
 }

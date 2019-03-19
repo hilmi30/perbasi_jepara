@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.view.MenuItem
+import com.google.firebase.auth.FirebaseAuth
 import com.perusdajepara.perbasijepara.R
 import com.perusdajepara.perbasijepara.adapter.TabAdapter
 import com.perusdajepara.perbasijepara.listjadwal.ListJadwalFragment
@@ -42,20 +43,19 @@ class DetailKategoriEventActivity : AppCompatActivity() {
 
         val tabAdapter = TabAdapter(supportFragmentManager)
 
-        when (status) {
-            "1" -> {
-                tabAdapter.addFragment("Register", RegisterEventFragment())
-                tabAdapter.addFragment("Jadwal", listJadwalFragment)
-                tabAdapter.addFragment("Team", teamEventFragment)
-                tabAdapter.addFragment("Standing", listStandingsFragment)
-                detail_event_tab.tabMode = TabLayout.MODE_SCROLLABLE
-            }
-            else -> {
-                tabAdapter.addFragment("Jadwal", listJadwalFragment)
-                tabAdapter.addFragment("Team", teamEventFragment)
-                tabAdapter.addFragment("Standing", listStandingsFragment)
-                detail_event_tab.tabMode = TabLayout.MODE_FIXED
-            }
+        val mAuth = FirebaseAuth.getInstance()
+
+        if (status == "1" && mAuth.currentUser != null) {
+            tabAdapter.addFragment("Register", RegisterEventFragment())
+            tabAdapter.addFragment("Jadwal", listJadwalFragment)
+            tabAdapter.addFragment("Team", teamEventFragment)
+            tabAdapter.addFragment("Standing", listStandingsFragment)
+            detail_event_tab.tabMode = TabLayout.MODE_SCROLLABLE
+        } else {
+            tabAdapter.addFragment("Jadwal", listJadwalFragment)
+            tabAdapter.addFragment("Team", teamEventFragment)
+            tabAdapter.addFragment("Standing", listStandingsFragment)
+            detail_event_tab.tabMode = TabLayout.MODE_FIXED
         }
 
         detail_event_pager.adapter = tabAdapter

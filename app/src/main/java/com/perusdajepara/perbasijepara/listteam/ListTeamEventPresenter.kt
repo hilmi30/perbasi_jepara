@@ -25,7 +25,7 @@ class ListTeamEventPresenter: BasePresenter<ListTeamEventView> {
         mView?.showLoading()
 
         val query = FirebaseDatabase.getInstance().reference
-                .child("teamTerdaftar").child(uid)
+                .child("teamTerdaftar").orderByChild("kategori").equalTo(uid)
         query.keepSynced(true)
 
         val options = FirebaseRecyclerOptions
@@ -40,7 +40,6 @@ class ListTeamEventPresenter: BasePresenter<ListTeamEventView> {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-
                 if(!p0.exists()) mView?.dataEmpty() else mView?.dataNotEmpty()
                 mView?.hideLoading()
             }

@@ -6,4 +6,5 @@ class TeamModel {
     var email: String? = null
     var noTelp: String? = null
     var registerAt: String? = null
+    var uidUser: String = ""
 }

@@ -1,5 +1,6 @@
 package com.perusdajepara.perbasijepara.registerevent
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.perusdajepara.perbasijepara.basecontract.BasePresenter
@@ -9,6 +10,7 @@ class RegisterEventPresenter: BasePresenter<RegisterEventView> {
 
     var mView: RegisterEventView? = null
     private lateinit var mDatabase: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onAttach(view: RegisterEventView) {
         mView = view
@@ -20,6 +22,7 @@ class RegisterEventPresenter: BasePresenter<RegisterEventView> {
 
     fun initFirebase() {
         mDatabase = FirebaseDatabase.getInstance().reference
+        mAuth = FirebaseAuth.getInstance()
     }
 
     fun kirimDaftarEvent(namaTeam: String, emailTeam: String, noTelp: String, uidEvent: String) {
@@ -30,10 +33,13 @@ class RegisterEventPresenter: BasePresenter<RegisterEventView> {
         teamModel.nama = namaTeam
         teamModel.noTelp = noTelp
         teamModel.kategoriEvent = uidEvent
+        teamModel.uidUser = mAuth.currentUser?.uid.toString()
 
-
-
-
-        mDatabase.child("teamTerdaftar").push().setValue("")
+        mDatabase.child("teamTerdaftar/${teamModel.uidUser}").setValue(teamModel).addOnSuccessListener {
+            mView?.daftarEventBerhasil()
+            mView?.hideLoading()
+        }.addOnFailureListener {
+            mView?.gagalDaftarEvent()
+        }
     }
 }
